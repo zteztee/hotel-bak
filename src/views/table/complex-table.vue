@@ -3,33 +3,46 @@
 		<!--工具条-->
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true" :model="filters" @submit.native.prevent>
+        <span class="span">房间状态：</span>
 				<el-form-item>
-					<el-input v-model="filters.name" placeholder="姓名"></el-input>
+					<el-select v-model="filters.state" placeholder="房间状态">
+            <el-option v-for="item in roomStateList" :key="item.id" :label="item.state" :value="item.state">
+            </el-option>
+          </el-select>
+				</el-form-item>
+        <el-form-item :prop="filters.state">
+					<el-button type="primary" v-on:click="getRoomsState" >状态查询</el-button>
+				</el-form-item>
+        <span class="span">房间类型：</span>
+				<el-form-item>
+					<el-select v-model="filters.type" placeholder="房间类型">
+            <el-option v-for="item in roomTypeList" :key="item.id" :label="item.type" :value="item.type"></el-option>
+          </el-select>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" v-on:click="getUsers">查询</el-button>
+					<el-button type="primary" v-on:click="getRoomsType">类型查询</el-button>
 				</el-form-item>
-				<el-form-item>
+				<!-- <el-form-item>
 					<el-button type="primary" @click="handleAdd">新增</el-button>
-				</el-form-item>
+				</el-form-item> -->
 			</el-form>
 		</el-col>
 
 		<!--列表-->
-		<el-table :data="users" highlight-current-row @selection-change="selsChange" style="width: 100%;">
+		<el-table :data="rooms" highlight-current-row @selection-change="selsChange" style="width: 100%;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index" width="60">
 			</el-table-column>
-			<el-table-column prop="name" label="姓名" width="120">
+			<el-table-column prop="roomnum" label="房间号" width="120">
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" width="120" :formatter="formatSex">
+			<el-table-column prop="roomState.state" label="房间状态" width="120" >
 			</el-table-column>
-			<el-table-column prop="age" label="年龄" width="120">
+			<el-table-column prop="roomType.type" label="房间类型" width="120">
 			</el-table-column>
-			<el-table-column prop="birth" label="生日" width="120">
+			<el-table-column prop="timemoney" label="元/小时" width="120">
 			</el-table-column>
-			<el-table-column prop="addr" label="地址" min-width="160">
+			<el-table-column prop="daymoney" label="元/天" min-width="160">
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
@@ -42,45 +55,24 @@
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
-			</el-pagination>
-		</el-col>
+			<!-- <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+			</el-pagination> -->
+      <el-pagination layout="prev, pager, next" :total="50" @current-change="handleCurrentChange" style="float:right;"></el-pagination>
+    </el-col>
 
 		<!--编辑界面-->
-		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
-			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="姓名" prop="name">
-					<el-input v-model="editForm.name" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="editForm.sex">
-						<el-radio class="radio" :label=1>男</el-radio>
-						<el-radio class="radio" :label=0>女</el-radio>
-					</el-radio-group>
-				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
-				</el-form-item>
-				<el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item>
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="editForm.addr"></el-input>
-				</el-form-item>
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-			 <el-button @click.native="dialogFormVisible=false">取消</el-button>
-			  <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">添加</el-button>
-        <el-button v-else type="primary" @click="updateData">修改</el-button>
-			</div>
-		</el-dialog>
-	</section>
+		 <roomsEditfrom > 
+     </roomsEditfrom>
+	</section> 
 </template>
 
 <script>
 import util from '@/utils/table.js'
+import roomsEditfrom from '@/views/components/rooms/edit.vue'
 import {
   getUserListPage,
+  getRoomsStates,
+  getRoomsTypes,
   removeUser,
   batchRemoveUser,
   editUser,
@@ -88,6 +80,9 @@ import {
 } from '@/api/userTable'
 
 export default {
+  components:{
+    roomsEditfrom
+  },
   data() {
     return {
       dialogStatus: '',
@@ -97,11 +92,17 @@ export default {
       },
       dialogFormVisible: false,
       filters: {
-        name: ''
+        state: '',
+        stateid:0,
+        type: '',
+        typeid:0
       },
-      users: [],
+      rooms: [],
+      roomStateList:[],
+      roomTypeList:[],
       total: 0,
-      page: 1,
+      page: 0,
+      pageSize:10,
       sels: [], // 列表选中列
       editFormRules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }]
@@ -124,23 +125,75 @@ export default {
   },
   methods: {
     // 性别显示转换
-    formatSex: function(row, column) {
-      return row.sex === 1 ? '男' : row.sex === 0 ? '女' : '未知'
-    },
+    // formatSex: function(row, column) {
+    //   return row.sex === 1 ? '男' : row.sex === 0 ? '女' : '未知'
+    // },
     handleCurrentChange(val) {
-      this.page = val
+      this.page = (val-1)*this.pageSize
       this.getUsers()
     },
     // 获取用户列表
     getUsers() {
       const para = {
         page: this.page,
-        name: this.filters.name
+        pageSize: this.pageSize,
       }
       getUserListPage(para).then(res => {
-        this.total = res.data.total
-        this.users = res.data.users
+        // this.total = res.data.total
+        this.rooms = res.data
       })
+    },
+    getRoomsState() {
+      if(this.filters.state!=''){
+        for(var i = 0; i < this.roomStateList.length; i++){
+          if(this.roomStateList[i].state == this.filters.state){
+            this.filters.stateid = this.roomStateList[i].id
+            const para = {
+              id: this.filters.stateid
+            }
+            getRoomsStates(para).then(res => {
+                    // this.total = res.data.total
+              this.rooms = res.data
+              this.filters.state = ''
+            })
+          }
+        }
+      }else{
+        const para = {
+          id:''
+        }
+        getRoomsStates(para).then(res => {
+                    // this.total = res.data.total
+              this.roomStateList = res.data
+              this.filters.state = ''
+            })}
+      
+    },
+    getRoomsType() {
+      if(this.filters.type!=''){
+        for(var i = 0; i < this.roomTypeList.length; i++){
+          if(this.roomTypeList[i].type == this.filters.type){
+            this.filters.typeid = this.roomTypeList[i].id
+            const para = {
+              id: this.filters.typeid
+            }
+            getRoomsTypes(para).then(res => {
+                    // this.total = res.data.total
+              this.rooms = res.data
+              this.filters.type = ''
+            })
+          }
+        }
+      }else{
+        const para = {
+          id:''
+        }
+        getRoomsTypes(para).then(res => {
+           // this.total = res.data.total
+          this.roomTypeList = res.data
+          this.filters.type = ''
+        })
+      }
     },
     // 删除
     handleDel(index, row) {
@@ -164,18 +217,19 @@ export default {
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.editForm = Object.assign({}, row)
+      this.editForm.id = index
     },
     // 显示新增界面
     handleAdd() {
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.editForm = {
-        id: '0',
-        name: '',
-        sex: 1,
-        age: 0,
-        birth: '',
-        addr: ''
+        roomnum: '',
+        roomState:{ state: '',},
+        roomType:{type:''},
+        timemoney: 0,
+        daymoney: 0,
+        id:0
       }
     },
     // 编辑
@@ -262,6 +316,8 @@ export default {
   },
   mounted() {
     this.getUsers()
+    this.getRoomsState()
+    this.getRoomsType()
   }
 }
 </script>
