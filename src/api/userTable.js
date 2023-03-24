@@ -2,9 +2,20 @@ import request from '@/utils/request'
 
 export function getUserListPage(params) {
   return request({
-    url: '/user/listpage',
+    url: '/rooms/'+params.page+'/'+params.pageSize,
     method: 'get',
-    params: params
+  })
+}
+export function getRoomsStates(params) {
+  return request({
+    url: '/rooms/s/'+params.id,
+    method: 'get',
+  })
+}
+export function getRoomsTypes(params) {
+  return request({
+    url: '/rooms/t/'+params.id,
+    method: 'get',
   })
 }
 export function removeUser(params) {

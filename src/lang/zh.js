@@ -24,7 +24,7 @@ export default {
     customtrigger: '自定义事件',
     form: '表单',
     Tabs: 'tabs选项卡',
-    Table: '表格',
+    Table: '后台管理',
     Icons: 'icon图标',
     treeChart: '树图',
     gaugeChart: '仪表图',

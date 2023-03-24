@@ -16,7 +16,10 @@
         <h4 class="login-title">登录{{website.title}}
         </h4>
         <el-tabs v-model="activeName">
-          <el-tab-pane label="用户密码" name="user">
+          <el-tab-pane label="散客登录" name="per">
+            <userLogin></userLogin>
+          </el-tab-pane>
+          <el-tab-pane label="团体登录" name="team">
             <userLogin></userLogin>
           </el-tab-pane>
           <el-tab-pane label="短信验证码" name="code">
