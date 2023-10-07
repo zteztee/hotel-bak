@@ -9,8 +9,55 @@
 
 <script>
 import 'vue-transition.css'
+
 export default {
-  name: 'App'
+
+  name: 'App',
+      //App.vue的created():
+    computed:{
+          
+      },
+      
+      
+  //   created() {
+  //       console.log(this.username)
+  //   //页面刷新前将vuex里的状态数据保存到sessionStorage
+  //   window.addEventListener(
+  //   	"beforeunload",()=>{
+  //       this.$store.state.user.username = this.username
+  //   });
+  // }
+  //App.vue的created():
+  
+ //App.vue的created():
+ created() {
+    // //在页面加载从本地读取状态数据并写入vuex
+    // if (sessionStorage.getItem("store")) {
+    //   console.log(Object.assign(
+    //       {},
+    //       this.$store.state,
+    //       JSON.parse(sessionStorage.getItem("store"))
+    //     ))
+    //   this.$store.replaceState(
+    //     Object.assign(
+    //       {},
+    //       this.$store.state,
+    //       JSON.parse(sessionStorage.getItem("store"))
+    //     )
+    //   );
+    //   store1.username=this.$store.state.user.username.name
+      
+    // }
+
+    // //页面刷新前将vuex里的状态数据保存到sessionStorage
+    // window.addEventListener(
+    // 	"beforeunload",()=>{
+    // 	sessionStorage.setItem("store",JSON.stringify(this.$store.state));
+    // });
+  }
+
+
+      
 }
 
 </script>

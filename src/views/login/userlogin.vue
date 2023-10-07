@@ -1,27 +1,43 @@
 <template>
   <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
     <el-form-item prop="username">
-      <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名">
+      <el-input size="small" @keyup.enter.native="handleLogin"
+       v-model="loginForm.username"
+       auto-complete="off" placeholder="请输入用户名">
         <i slot="prefix" class="icon-yonghu"></i>
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input size="small" @keyup.enter.native="handleLogin" :type="passwordType" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码">
-        <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
+      <el-input size="small" @keyup.enter.native="handleLogin"
+       :type="passwordType" v-model="loginForm.password" 
+       auto-complete="off" placeholder="请输入密码">
+        <i class="el-icon-view el-input__icon" slot="suffix"
+         @click="showPassword"></i>
         <i slot="prefix" class="icon-mima"></i>
       </el-input>
     </el-form-item>
-    <el-checkbox v-model="checked">记住账号</el-checkbox>
     <el-form-item>
-      <el-button type="primary" size="small" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
+    <div>
+      <el-checkbox v-model="checked">记住账号</el-checkbox>
+      <el-link @click="openAddUser" style="float: right;">
+        注册</el-link>
+    </div>
+      <el-button type="primary" size="small" 
+      @click.native.prevent="handleLogin" class="login-submit">
+      登录</el-button>
     </el-form-item>
+    <addUserForm :addUserForm="addUserForm" 
+    @backReturn="closeUserForm"></addUserForm>
   </el-form>
+  
 </template>
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
+import addUserForm from './addUserForm.vue'
 export default {
   name: 'userlogin',
+  components:{addUserForm},
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
@@ -40,10 +56,13 @@ export default {
       }
     }
     return {
+      addUserForm:false,
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        logType : 0,
       },
+      currentUser:'',
       checked: false,
       code: {
         src: '',
@@ -73,8 +92,16 @@ export default {
   mounted() {},
   computed: {
   },
-  props: [],
+  props: {
+    logType : Number,
+  },
   methods: {
+    openAddUser(){
+      this.addUserForm=true
+    },
+    closeUserForm(val){
+      this.addUserForm=val
+    },
     showPassword() {
       this.passwordType === ''
         ? (this.passwordType = 'password')
@@ -83,12 +110,22 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+          this.setLoginFrom()
+          this.$emit('LoginType',this.logType)
           this.$store.dispatch('Login', this.loginForm).then(res => {
+            console.log(this.loginForm)
             this.$router.push({ path: '/dashboard/dashboard' })
+            // return this.currentUser=res
           })
         }
       })
+    },
+    setLoginFrom(){
+      this.loginForm.logType=this.logType
     }
+  },
+  mounted(){
+    
   }
 }
 </script>

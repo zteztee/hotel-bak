@@ -92,6 +92,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/style/public.scss';
+//  @import 'src/assets/style/public.scss';
+
 .demo-bs-wrapper {
   height: 400px;
   position: relative;

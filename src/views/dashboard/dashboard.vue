@@ -6,16 +6,15 @@
         src="../../../static/img/report/forkme.png"
         alt="Fork me on GitHub"></a> -->
     <div class="item">
-      <h4>数据展示</h4>
-      <nx-data-display :option="option"></nx-data-display>
+      <h4>房间展示</h4>
+      <roomDataDisplay :option="option"></roomDataDisplay>
     </div>
-    <div class="item">
+    <!-- <div class="item">
       <h4>选项卡展示</h4>
       <nx-data-tabs :option="easyDataOption"></nx-data-tabs>
     </div>
     <div class="item">
       <h4>卡片的展示</h4>
-      <nx-data-card :option="easyDataOption0"></nx-data-card>
     </div>
     <div class="item">
       <h4>带数字的展示</h4>
@@ -24,22 +23,20 @@
     <div class="item">
       <h4>简易展示</h4>
       <nx-data-icons :option="easyDataOption2"></nx-data-icons>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 
-import nxDataDisplay from '@/components/nx-data-display/nx-data-display'
-import nxDataCard from '@/components/nx-data-card/nx-data-card'
+import roomDataDisplay from '@/components/roomshow/roomshow.vue'
 import nxDataTabs from '@/components/nx-data-tabs/nx-data-tabs'
 import nxDataIcons from '@/components/nx-data-icons/nx-data-icons'
 import nxGithubCorner from '@/components/nx-github-corner'
 export default {
   name: 'report',
   components: {
-    nxDataDisplay,
-    nxDataCard,
+    roomDataDisplay,
     nxDataTabs,
     nxDataIcons,
     nxGithubCorner
@@ -47,23 +44,21 @@ export default {
   },
   data() {
     return {
+      rooms: [],
+      roomStateList:[],
+      roomTypeList:[],
+      total: 0,
+      page: 0,
+      pageSize:10,
       option: {
-        span: 8,
-        color: '#15A0FF',
-        data: [
-          {
-            count: 1000,
-            title: '日活跃数'
-          },
-          {
-            count: 3000,
-            title: '月活跃数'
-          },
-          {
-            count: 20000,
-            title: '年活跃数'
-          }
-        ]
+        clickForm: {
+        roomnum: '',
+        roomState:{ state: '',},
+        roomType:{type:''},
+        timemoney: 0,
+        daymoney: 0,
+        id:0,
+      },
       },
       easyDataOption: {
         span: 6,
@@ -207,10 +202,15 @@ export default {
       }
     }
   },
-  created() {},
+  methods:{
+    
+  },
   watch: {},
-  mounted() {},
-  computed: {}
+  mounted() {
+    // this.getRoomsState()
+    // this.getRoomsType()
+  },
+  computed: {},
 }
 </script>
 

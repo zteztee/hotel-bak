@@ -60,99 +60,99 @@ export const constantRouterMap = [
     ]
   },
   // 图表
-  // {
-  //   path: '/charts',
-  //   component: Layout,
-  //   redirect: '/charts/DiscountFigure',
-  //   name: 'charts',
-  //   meta: { title: 'charts', icon: 'chart' },
-  //   children: [
-  //     {
-  //       path: 'DiscountFigure',
-  //       name: 'DiscountFigure',
-  //       component: () => import('@/views/charts/DiscountFigure'),
-  //       meta: { title: 'DiscountFigure', icon: 'discounting' }
-  //     },
-  //     {
-  //       path: 'columnar',
-  //       name: 'columnar',
-  //       component: () => import('@/views/charts/columnar'),
-  //       meta: { title: 'columnar', icon: 'columnar' }
-  //     },
-  //     {
-  //       path: 'barGraph',
-  //       name: 'barGraph',
-  //       component: () => import('@/views/charts/barGraph'),
-  //       meta: { title: 'barGraph', icon: 'barGraph' }
-  //     },
-  //     {
-  //       path: 'pieChart',
-  //       name: 'pieChart',
-  //       component: () => import('@/views/charts/pieChart'),
-  //       meta: { title: 'pieChart', icon: 'pieChart' }
-  //     },
-  //     {
-  //       path: 'ringChart',
-  //       name: 'ringChart',
-  //       component: () => import('@/views/charts/ringChart'),
-  //       meta: { title: 'ringChart', icon: 'ringChart' }
-  //     },
-  //     {
-  //       path: 'waterfallCharts',
-  //       name: 'waterfallCharts',
-  //       component: () => import('@/views/charts/waterfallCharts'),
-  //       meta: { title: 'waterfallCharts', icon: 'waterfallCharts' }
-  //     },
-  //     {
-  //       path: 'funnelCharts',
-  //       name: 'funnelCharts',
-  //       component: () => import('@/views/charts/funnelCharts'),
-  //       meta: { title: 'funnelCharts', icon: 'funnelCharts' }
-  //     },
-  //     {
-  //       path: 'radarCharts',
-  //       name: 'radarCharts',
-  //       component: () => import('@/views/charts/radarCharts'),
-  //       meta: { title: 'radarCharts', icon: 'radarCharts' }
-  //     },
-  //     {
-  //       path: 'sankeyChart',
-  //       name: 'sankeyChart',
-  //       component: () => import('@/views/charts/sankeyChart'),
-  //       meta: { title: 'sankeyChart', icon: 'sankeyChart' }
-  //     },
-  //     {
-  //       path: 'heatmapChart',
-  //       name: 'heatmapChart',
-  //       component: () => import('@/views/charts/heatmapChart'),
-  //       meta: { title: 'heatmapChart', icon: 'heatmapChart' }
-  //     },
-  //     {
-  //       path: 'scatterChart',
-  //       name: 'scatterChart',
-  //       component: () => import('@/views/charts/scatterChart'),
-  //       meta: { title: 'scatterChart', icon: 'scatterChart' }
-  //     },
-  //     {
-  //       path: 'candleChart',
-  //       name: 'candleChart',
-  //       component: () => import('@/views/charts/candleChart'),
-  //       meta: { title: 'candleChart', icon: 'candleChart' }
-  //     },
-  //     {
-  //       path: 'gaugeChart',
-  //       name: 'gaugeChart',
-  //       component: () => import('@/views/charts/gaugeChart'),
-  //       meta: { title: 'gaugeChart', icon: 'gaugeChart' }
-  //     },
-  //     {
-  //       path: 'treeChart',
-  //       name: 'treeChart',
-  //       component: () => import('@/views/charts/treeChart'),
-  //       meta: { title: 'treeChart', icon: 'treeChart' }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/charts',
+    component: Layout,
+    redirect: '/charts/DiscountFigure',
+    name: 'charts',
+    meta: { title: 'charts', icon: 'chart' },
+    children: [
+      // {
+      //   path: 'DiscountFigure',
+      //   name: 'DiscountFigure',
+      //   component: () => import('@/views/charts/DiscountFigure'),
+      //   meta: { title: 'DiscountFigure', icon: 'discounting' }
+      // },
+      {
+        path: 'columnar',
+        name: 'columnar',
+        component: () => import('@/views/charts/columnar'),
+        meta: { title: 'columnar', icon: 'columnar' }
+      },
+      // {
+      //   path: 'barGraph',
+      //   name: 'barGraph',
+      //   component: () => import('@/views/charts/barGraph'),
+      //   meta: { title: 'barGraph', icon: 'barGraph' }
+      // },
+      {
+        path: 'pieChart',
+        name: 'pieChart',
+        component: () => import('@/views/charts/pieChart'),
+        meta: { title: 'pieChart', icon: 'pieChart' }
+      },
+      // {
+      //   path: 'ringChart',
+      //   name: 'ringChart',
+      //   component: () => import('@/views/charts/ringChart'),
+      //   meta: { title: 'ringChart', icon: 'ringChart' }
+      // },
+      // {
+      //   path: 'waterfallCharts',
+      //   name: 'waterfallCharts',
+      //   component: () => import('@/views/charts/waterfallCharts'),
+      //   meta: { title: 'waterfallCharts', icon: 'waterfallCharts' }
+      // },
+      // {
+      //   path: 'funnelCharts',
+      //   name: 'funnelCharts',
+      //   component: () => import('@/views/charts/funnelCharts'),
+      //   meta: { title: 'funnelCharts', icon: 'funnelCharts' }
+      // },
+      // {
+      //   path: 'radarCharts',
+      //   name: 'radarCharts',
+      //   component: () => import('@/views/charts/radarCharts'),
+      //   meta: { title: 'radarCharts', icon: 'radarCharts' }
+      // },
+      // {
+      //   path: 'sankeyChart',
+      //   name: 'sankeyChart',
+      //   component: () => import('@/views/charts/sankeyChart'),
+      //   meta: { title: 'sankeyChart', icon: 'sankeyChart' }
+      // },
+      // {
+      //   path: 'heatmapChart',
+      //   name: 'heatmapChart',
+      //   component: () => import('@/views/charts/heatmapChart'),
+      //   meta: { title: 'heatmapChart', icon: 'heatmapChart' }
+      // },
+      // {
+      //   path: 'scatterChart',
+      //   name: 'scatterChart',
+      //   component: () => import('@/views/charts/scatterChart'),
+      //   meta: { title: 'scatterChart', icon: 'scatterChart' }
+      // },
+      // {
+      //   path: 'candleChart',
+      //   name: 'candleChart',
+      //   component: () => import('@/views/charts/candleChart'),
+      //   meta: { title: 'candleChart', icon: 'candleChart' }
+      // },
+      // {
+      //   path: 'gaugeChart',
+      //   name: 'gaugeChart',
+      //   component: () => import('@/views/charts/gaugeChart'),
+      //   meta: { title: 'gaugeChart', icon: 'gaugeChart' }
+      // },
+      // {
+      //   path: 'treeChart',
+      //   name: 'treeChart',
+      //   component: () => import('@/views/charts/treeChart'),
+      //   meta: { title: 'treeChart', icon: 'treeChart' }
+      // }
+    ]
+  },
   // 地图
   // {
   //   path: '/map',
@@ -233,20 +233,7 @@ export const constantRouterMap = [
   // },
 
   // 表情包
-  // {
-  //   path: '/emoji',
-  //   component: Layout,
-  //   meta: { title: 'emoji', icon: 'emoji' },
-  //   children: [
-  //     {
-  //       path: 'emoji',
-  //       name: 'emoji',
-  //       component: () => import('@/views/githubemoji'),
-  //       meta: { title: 'emoji', icon: 'emoji' }
-  //     }
-
-  //   ]
-  // },
+  
   // 树形组件
   // {
   //   path: '/treeMen',
@@ -386,52 +373,50 @@ export const constantRouterMap = [
   //   ]
   // },
 
-  // 滚动定位
+  // 个人管理
   // {
-  //   path: '/better-scroll',
+  //   path: '/person',
   //   component: Layout,
-  //   redirect: 'better-scroll/to',
-  //   meta: { title: 'better-scroll', icon: 'better-scroll' },
   //   children: [
   //     {
-  //       path: 'to',
-  //       name: 'to',
-  //       component: () => import('@/views/better-scroll/to'),
-  //       meta: { title: 'Rollingpositioning', icon: 'Rollingpositioning' }
+  //       path: 'person',
+  //       name: 'person',
+  //       component: () => import('@/views/persons'),
+  //       meta: { title: '个人用户', icon: 'peoples' },
   //     }
   //   ]
   // },
   // 表单
-  {
-    path: '/form',
-    component: Layout,
-    redirect: '/form/BaseForm',
-    name: 'form',
-    meta: {
-      title: 'form',
-      icon: 'form'
-    },
-    children: [
-      {
-        path: 'BaseForm',
-        name: 'BaseForm',
-        component: () => import('@/views/form/BaseForm'),
-        meta: { title: 'BaseForm' }
-      },
-      {
-        path: 'VueEditor',
-        name: 'VueEditor',
-        component: () => import('@/views/form/VueEditor'),
-        meta: { title: 'VueEditor' }
-      },
-      {
-        path: 'Upload',
-        name: 'Upload',
-        component: () => import('@/views/form/Upload'),
-        meta: { title: 'Upload' }
-      }
-    ]
-  },
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   redirect: '/form/BaseForm',
+  //   name: 'form',
+  //   meta: {
+  //     title: 'form',
+  //     icon: 'form'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'BaseForm',
+  //       name: 'BaseForm',
+  //       component: () => import('@/views/form/BaseForm'),
+  //       meta: { title: 'BaseForm' }
+  //     },
+  //     {
+  //       path: 'VueEditor',
+  //       name: 'VueEditor',
+  //       component: () => import('@/views/form/VueEditor'),
+  //       meta: { title: 'VueEditor' }
+  //     },
+  //     {
+  //       path: 'Upload',
+  //       name: 'Upload',
+  //       component: () => import('@/views/form/Upload'),
+  //       meta: { title: 'Upload' }
+  //     }
+  //   ]
+  // },
   // 右菜单
   // {
   //   path: '/contextmenu',
@@ -482,61 +467,61 @@ export const constantRouterMap = [
   //   ]
   // },
   // 表格
-  {
-    path: '/table',
-    component: Layout,
-    redirect: '/table/complex-table',
-    name: 'table',
-    meta: {
-      title: '后台管理',
-      icon: 'table'
-    },
-    children: [
-      {
-        path: 'complex-table',
-        name: 'complex-table',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '房间管理' }
-      },
-      {
-        path: 'complex-table1',
-        name: 'complex-table1',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '散客用户入住' }
-      },
-      {
-        path: 'complex-table2',
-        name: 'complex-table2',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '团体用户入住' }
-      },
-      {
-        path: 'complex-table3',
-        name: 'complex-table3',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '用户管理' }
-      },
-      {
-        path: 'complex-table4',
-        name: 'complex-table4',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '预定房间' }
-      },
-      {
-        path: 'complex-table5',
-        name: 'complex-table5',
-        component: () => import('@/views/table/complex-table'),
-        meta: { title: '预定房间' }
-      },
-      // {
-      //   path: 'TreeTable',
-      //   name: 'TreeTable',
-      //   component: () => import('@/views/table/tree-table/index'),
-      //   meta: { title: 'treeTable' }
-      // }
+  // {
+  //   path: '/table',
+  //   component: Layout,
+  //   redirect: '/table/complex-table',
+  //   name: 'table',
+  //   meta: {
+  //     title: '后台管理',
+  //     icon: 'table'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'complex-table',
+  //       name: 'complex-table',
+  //       component: () => import('@/views/table/complex-table'),
+  //       meta: { title: '房间管理' }
+  //     },
+  //     {
+  //       path: 'complex-table1',
+  //       name: 'complex-table1',
+  //       component: () => import('@/views/table/complex-table'),
+  //       meta: { title: '散客用户入住' }
+  //     },
+  //     {
+  //       path: 'complex-table2',
+  //       name: 'complex-table2',
+  //       component: () => import('@/views/table/complex-table'),
+  //       meta: { title: '团体用户入住' }
+  //     },
+  //     {
+  //       path: 'complex-table3',
+  //       name: 'complex-table3',
+  //       component: () => import('@/views/table/complex-table3'),
+  //       meta: { title: '用户管理' }
+  //     },
+  //     {
+  //       path: 'complex-table4',
+  //       name: 'complex-table4',
+  //       component: () => import('@/views/table/complex-table'),
+  //       meta: { title: '预定房间' }
+  //     },
+  //     {
+  //       path: 'complex-table5',
+  //       name: 'complex-table5',
+  //       component: () => import('@/views/table/complex-table'),
+  //       meta: { title: '预定房间' }
+  //     },
+  //     // {
+  //     //   path: 'TreeTable',
+  //     //   name: 'TreeTable',
+  //     //   component: () => import('@/views/table/tree-table/index'),
+  //     //   meta: { title: 'treeTable' }
+  //     // }
 
-    ]
-  },
+  //   ]
+  // },
   //
   // {
   //   path: '/excel',
@@ -580,20 +565,7 @@ export const constantRouterMap = [
   //       meta: { title: 'zip', icon: 'zip' }
   //     }
   //   ]
-  // },
-  // {
-  //   path: '/i18n-demo',
-  //   component: Layout,
-  //   redirect: 'i18n-demo',
-  //   children: [
-  //     {
-  //       path: 'indexLang',
-  //       name: 'indexLang',
-  //       component: () => import('@/views/i18n-demo/indexLang'),
-  //       meta: { title: 'i18n', icon: 'international' }
-  //     }
-  //   ]
-  // }
+  // }, 
 ]
 
 export default new Router({
@@ -601,62 +573,85 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
+export const asyncRouterMapedit =[
+  {
+    path: '/person',
+    component: Layout,
+    name:'person',
+    meta: {
+      
+      roles: ['editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'person',
+        name: 'person',
+        component: () => import('@/views/persons'),
+        meta: { title: '个人用户', icon: 'peoples' },
+      }
+    ]
+  },  
+]
 export const asyncRouterMap = [
-  // {
-  //   path: '/permission',
-  //   component: Layout,
-  //   redirect: '/permission/page',
-  //   name: 'permission',
-  //   alwaysShow: true, // will always show the root menu
-  //   meta: {
-  //     title: 'permission',
-  //     icon: 'lock',
-  //     roles: ['admin', 'editor'] // you can set roles in root nav
-  //   },
-  //   children: [{
-  //     path: 'page',
-  //     component: () => import('@/views/permission/page'),
-  //     name: 'pagePermission',
-  //     meta: {
-  //       title: 'pagePermission',
-  //       roles: ['admin'] // or you can only set roles in sub nav
-  //     }
-  //   }, {
-  //     path: 'directive',
-  //     component: () => import('@/views/permission/directive'),
-  //     name: 'directivePermission',
-  //     meta: {
-  //       title: 'directivePermission'
-  //       // if do not set roles, means: this page does not require permission
-  //     }
-  //   }]
-  // },
-  // {
-  //   path: '/error',
-  //   component: Layout,
-  //   redirect: 'noredirect',
-  //   name: 'errorPages',
-  //   meta: {
-  //     title: 'errorPages',
-  //     icon: '404'
-  //   },
-  //   children: [
-  //     { path: '401', component: () => import('@/views/errorPage/401'), name: 'page401', meta: { title: 'page401', noCache: true }},
-  //     { path: '404', component: () => import('@/views/errorPage/404'), name: 'page404', meta: { title: 'page404', noCache: true }}
-  //   ]
-  // },
-  // 错误日志
-  // {
-  //   path: '/errorLog',
-  //   component: Layout,
+  {
+    path: '/table',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'table',
+    // alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '后台管理',
+      icon: 'table',
+      roles: ['admin'] // you can set roles in root nav
+    },
+    children: [
+        {
+          path: 'complex-table',
+          name: 'complex-table',
+          component: () => import('@/views/table/complex-table'),
+          meta: { title: '房间管理' }
+        },
+        {
+          path: 'complex-table2-clent',
+          name: 'complex-table2-clent',
+          component: () => import('@/views/table/complex-table2-client'),
+          meta: { title: '用户入住管理' }
+        },
+        {
+          path: 'complex-table3',
+          name: 'complex-table3',
+          component: () => import('@/views/table/complex-table3'),
+          meta: { title: '用户管理' }
+        },
+      ]
+    },  
+      
+      {
+        path: '/error',
+        component: Layout,
+        redirect: 'noredirect',
+        name: 'errorPages',
+        meta: {
+          title: 'errorPages',
+          icon: '404'
+        },
+        children: [
+          { path: '401', component: () => import('@/views/errorPage/401'), name: 'page401', meta: { title: 'page401', noCache: true }},
+          { path: '404', component: () => import('@/views/errorPage/404'), name: 'page404', meta: { title: 'page404', noCache: true }}
+        ]
+      },
+      // 错误日志
+      {
+        path: '/errorLog',
+        component: Layout,
 
-  //   children: [
-  //     {
-  //       path: 'errorLog',
-  //       name: 'errorLog',
-  //       component: () => import('@/views/errorLog/errorLog'),
-  //       meta: { title: 'Errorlog', icon: 'errorLog' }
-  //     }
-  //   ]
-  // },
+        children: [
+          {
+            path: 'errorLog',
+            name: 'errorLog',
+            component: () => import('@/views/errorLog/errorLog'),
+            meta: { title: 'Errorlog', icon: 'errorLog' }
+          }
+        ]
+      },
   { path: '*', redirect: '/404', hidden: true }]

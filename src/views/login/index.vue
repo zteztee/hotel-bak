@@ -15,15 +15,15 @@
       <div class="login-main">
         <h4 class="login-title">登录{{website.title}}
         </h4>
-        <el-tabs v-model="activeName">
-          <el-tab-pane label="散客登录" name="per">
-            <userLogin></userLogin>
+        <el-tabs v-model="logType" @tab-click="changeNum">
+          <el-tab-pane label="散客登录" name="per" >
+            <userLogin  :logType="logTypeNum" @LoginType="handleLoginType"></userLogin>
           </el-tab-pane>
           <el-tab-pane label="团体登录" name="team">
-            <userLogin></userLogin>
+            <userLogin :logType="logTypeNum" @LoginType="handleLoginType"></userLogin>
           </el-tab-pane>
-          <el-tab-pane label="短信验证码" name="code">
-            <codeLogin></codeLogin>
+          <el-tab-pane label="管理员登录" name="adm">
+            <userLogin :logType="logTypeNum" @LoginType="handleLoginType"></userLogin>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -43,7 +43,9 @@ export default {
   },
   data() {
     return {
-      activeName: 'user'
+      activeName: 'user',
+      logType:'per',
+      logTypeNum:2,
     }
   },
   created() {},
@@ -52,11 +54,23 @@ export default {
     ...mapGetters(['website'])
   },
   props: [],
-  methods: {}
+  methods: {
+    changeNum(tab,event){
+      console.log(tab,event)
+      if(tab.name=='per'){
+        this.logTypeNum = 2
+      }if(tab.name == 'team'){ this.logTypeNum =3 }
+      if(tab.name == 'adm'){this.logTypeNum=1}
+      console.log(this.logTypeNum)
+    },
+    handleLoginType(val){
+      this.logTypeNum=val
+    }
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login-container {
   display: flex;
   align-items: center;

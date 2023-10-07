@@ -83,6 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/style/public.scss';
+// @import 'src/assets/style/public.scss';
 .page {
   .el-card {
     @extend %unable-select;

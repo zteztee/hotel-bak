@@ -3,7 +3,7 @@
 		<!--工具条-->
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true" :model="filters" @submit.native.prevent>
-        <span class="span">房间状态：</span>
+        <span class="topfilter">房间状态：</span>
 				<el-form-item>
 					<el-select v-model="filters.state" placeholder="房间状态">
             <el-option v-for="item in roomStateList" :key="item.id" :label="item.state" :value="item.state">
@@ -13,7 +13,7 @@
         <el-form-item :prop="filters.state">
 					<el-button type="primary" v-on:click="getRoomsState" >状态查询</el-button>
 				</el-form-item>
-        <span class="span">房间类型：</span>
+        <span class="topfilter">房间类型：</span>
 				<el-form-item>
 					<el-select v-model="filters.type" placeholder="房间类型">
             <el-option v-for="item in roomTypeList" :key="item.id" :label="item.type" :value="item.type"></el-option>
@@ -22,6 +22,9 @@
 				<el-form-item>
 					<el-button type="primary" v-on:click="getRoomsType">类型查询</el-button>
 				</el-form-item>
+        <el-button type="primary" class="el-icon-plus" style="float: right;" @click="handleAdd" circle></el-button>
+        <roomsAddfrom ref="addFrom" :clickz="dialogFormVisibleAdd" :editForms="editForm" @backReturn1="addFormOut" :roomStateList="roomStateList" :roomTypeList="roomTypeList"> </roomsAddfrom>
+
 				<!-- <el-form-item>
 					<el-button type="primary" @click="handleAdd">新增</el-button>
 				</el-form-item> -->
@@ -29,7 +32,7 @@
 		</el-col>
 
 		<!--列表-->
-		<el-table :data="rooms" highlight-current-row @selection-change="selsChange" style="width: 100%;">
+		<el-table :data="rooms" highlight-current-row @selection-change="selsChange" style="width: 100%;" size="medium" >
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index" width="60">
@@ -47,6 +50,8 @@
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
 					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <!--编辑界面-->
+		          <roomsEditfrom ref="editForm" :clicks="dialogFormVisible" :editForms="editForm" @backReturn="editFormOut" :roomStateList="roomStateList" :roomTypeList="roomTypeList"> </roomsEditfrom>
 					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
@@ -60,28 +65,26 @@
       <el-pagination layout="prev, pager, next" :total="50" @current-change="handleCurrentChange" style="float:right;"></el-pagination>
     </el-col>
 
-		<!--编辑界面-->
-		 <roomsEditfrom > 
-     </roomsEditfrom>
+		
 	</section> 
 </template>
 
 <script>
 import util from '@/utils/table.js'
 import roomsEditfrom from '@/views/components/rooms/edit.vue'
+import roomsAddfrom from '@/views/components/rooms/add.vue'
 import {
   getUserListPage,
   getRoomsStates,
   getRoomsTypes,
-  removeUser,
+  removeRooms,
   batchRemoveUser,
-  editUser,
-  addUser
-} from '@/api/userTable'
+  
+} from '@/api/roomsTable'
 
 export default {
   components:{
-    roomsEditfrom
+    roomsEditfrom,roomsAddfrom
   },
   data() {
     return {
@@ -91,6 +94,7 @@ export default {
         create: 'Create'
       },
       dialogFormVisible: false,
+      dialogFormVisibleAdd:false,
       filters: {
         state: '',
         stateid:0,
@@ -109,12 +113,13 @@ export default {
       },
       // 编辑界面数据
       editForm: {
-        id: '0',
-        name: '',
-        sex: 1,
-        age: 0,
-        birth: '',
-        addr: ''
+        roomnum: '',
+        roomState:{ state: '',},
+        roomType:{type:''},
+        timemoney: 0,
+        daymoney: 0,
+        id:0,
+
       },
 
       addFormVisible: false, // 新增界面是否显示
@@ -124,10 +129,7 @@ export default {
     }
   },
   methods: {
-    // 性别显示转换
-    // formatSex: function(row, column) {
-    //   return row.sex === 1 ? '男' : row.sex === 0 ? '女' : '未知'
-    // },
+    
     handleCurrentChange(val) {
       this.page = (val-1)*this.pageSize
       this.getUsers()
@@ -140,7 +142,7 @@ export default {
       }
       getUserListPage(para).then(res => {
         // this.total = res.data.total
-        this.rooms = res.data
+        this.rooms = res.data.data
       })
     },
     getRoomsState() {
@@ -153,7 +155,7 @@ export default {
             }
             getRoomsStates(para).then(res => {
                     // this.total = res.data.total
-              this.rooms = res.data
+              this.rooms = res.data.data
               this.filters.state = ''
             })
           }
@@ -164,7 +166,7 @@ export default {
         }
         getRoomsStates(para).then(res => {
                     // this.total = res.data.total
-              this.roomStateList = res.data
+              this.roomStateList = res.data.data
               this.filters.state = ''
             })}
       
@@ -179,7 +181,7 @@ export default {
             }
             getRoomsTypes(para).then(res => {
                     // this.total = res.data.total
-              this.rooms = res.data
+              this.rooms = res.data.data
               this.filters.type = ''
             })
           }
@@ -190,7 +192,7 @@ export default {
         }
         getRoomsTypes(para).then(res => {
            // this.total = res.data.total
-          this.roomTypeList = res.data
+          this.roomTypeList = res.data.data
           this.filters.type = ''
         })
       }
@@ -202,11 +204,13 @@ export default {
       })
         .then(() => {
           const para = { id: row.id }
-          removeUser(para).then(res => {
-            this.$message({
+          removeRooms(para).then(res => {
+            if(res.data.flag){
+              this.$message({
               message: '删除成功',
               type: 'success'
             })
+            }
             this.getUsers()
           })
         })
@@ -217,12 +221,12 @@ export default {
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.editForm = Object.assign({}, row)
-      this.editForm.id = index
+      
     },
     // 显示新增界面
     handleAdd() {
       this.dialogStatus = 'create'
-      this.dialogFormVisible = true
+      this.dialogFormVisibleAdd = true
       this.editForm = {
         roomnum: '',
         roomState:{ state: '',},
@@ -233,64 +237,64 @@ export default {
       }
     },
     // 编辑
-    updateData() {
-      this.$refs.editForm.validate(valid => {
-        if (valid) {
-          this.$confirm('确认提交吗？', '提示', {})
-            .then(() => {
-              const para = Object.assign({}, this.editForm)
-              para.birth =
-                !para.birth || para.birth === ''
-                  ? ''
-                  : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
-              editUser(para).then(res => {
-                this.$message({
-                  message: '提交成功',
-                  type: 'success'
-                })
-                this.$refs['editForm'].resetFields()
-                this.dialogFormVisible = false
-                this.getUsers()
-              })
-            })
-            .catch(e => {
-              // 打印一下错误
-              console.log(e)
-            })
-        }
-      })
-    },
+    // updateData() {
+    //   this.$refs.editForm.validate(valid => {
+    //     if (valid) {
+    //       this.$confirm('确认提交吗？', '提示', {})
+    //         .then(() => {
+    //           const para = Object.assign({}, this.editForm)
+    //           para.birth =
+    //             !para.birth || para.birth === ''
+    //               ? ''
+    //               : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
+    //           editUser(para).then(res => {
+    //             this.$message({
+    //               message: '提交成功',
+    //               type: 'success'
+    //             })
+    //             this.$refs['editForm'].resetFields()
+    //             this.dialogFormVisible = false
+    //             this.getUsers()
+    //           })
+    //         })
+    //         .catch(e => {
+    //           // 打印一下错误
+    //           console.log(e)
+    //         })
+    //     }
+    //   })
+    // },
     // 新增
-    createData: function() {
-      this.$refs.editForm.validate(valid => {
-        if (valid) {
-          this.$confirm('确认提交吗？', '提示', {})
-            .then(() => {
-              this.editForm.id = (parseInt(Math.random() * 100)).toString() // mock a id
-              const para = Object.assign({}, this.editForm)
-              console.log(para)
+    // createData: function() {
+    //   this.$refs.editForm.validate(valid => {
+    //     if (valid) {
+    //       this.$confirm('确认提交吗？', '提示', {})
+    //         .then(() => {
+    //           this.editForm.id = (parseInt(Math.random() * 100)).toString() // mock a id
+    //           const para = Object.assign({}, this.editForm)
+    //           console.log(para)
 
-              para.birth =
-                !para.birth || para.birth === ''
-                  ? ''
-                  : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
-              addUser(para).then(res => {
-                this.$message({
-                  message: '提交成功',
-                  type: 'success'
-                })
-                this.$refs['editForm'].resetFields()
-                this.dialogFormVisible = false
-                this.getUsers()
-              })
-            })
-            .catch(e => {
-              // 打印一下错误
-              console.log(e)
-            })
-        }
-      })
-    },
+    //           para.birth =
+    //             !para.birth || para.birth === ''
+    //               ? ''
+    //               : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
+    //           addUser(para).then(res => {
+    //             this.$message({
+    //               message: '提交成功',
+    //               type: 'success'
+    //             })
+    //             this.$refs['editForm'].resetFields()
+    //             this.dialogFormVisible = false
+    //             this.getUsers()
+    //           })
+    //         })
+    //         .catch(e => {
+    //           // 打印一下错误
+    //           console.log(e)
+    //         })
+    //     }
+    //   })
+    // },
     // 全选单选多选
     selsChange(sels) {
       this.sels = sels
@@ -312,6 +316,12 @@ export default {
           })
         })
         .catch(() => {})
+    },
+    editFormOut(val){
+      this.dialogFormVisible=val
+    },
+    addFormOut(v){
+      this.dialogFormVisibleAdd=v
     }
   },
   mounted() {
@@ -323,5 +333,8 @@ export default {
 </script>
 
 <style scoped>
-
+.topfilter{
+  padding-top: 10px;
+    display: inline-block;
+}
 </style>

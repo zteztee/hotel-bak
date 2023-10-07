@@ -16,6 +16,11 @@ const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
+
+  publicPath: process.env.NODE_ENV === 'production' ? '' : '.',
+  outputDir: "dist",
+  assetsDir: "static",
+  
   css: {
     loaderOptions: {
       css: {
@@ -45,6 +50,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
+  lintOnSave: process.env.NODE_ENV === 'development',
   lintOnSave: false,
   productionSourceMap: false,
   devServer: {
@@ -108,6 +114,18 @@ module.exports = {
           inline: /runtime\..*\.js$/
         }])
         .end()
+        // config.plugin('preload').tap(() => [
+        //   {
+        //     rel: 'preload',
+        //     // to ignore runtime.js
+        //     fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
+        //     include: 'initial'
+        //   }
+        // ])
+    
+        // when there are many pages, it will cause too many meaningless requests
+        config.plugins.delete('prefetch')
+    
       config.optimization.splitChunks({
         chunks: 'all',
         cacheGroups: {
@@ -132,6 +150,7 @@ module.exports = {
         }
       })
       config.optimization.runtimeChunk('single')
+
     })
   }
 }

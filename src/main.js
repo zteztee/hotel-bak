@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VCharts from 'v-charts'
-
+import 'default-passive-events'
 
 // 地图
 import BaiduMap from 'vue-baidu-map'
@@ -23,7 +23,6 @@ import '@/assets/library/font-awesome-4.7.0/css/font-awesome.min.css'
 
 import App from './App'
 
-import router from './router'
 
 import store from './store'
 
@@ -43,6 +42,8 @@ import '@/icons' // icon
 import '@/permission' // permission control
 
 import * as filters from './filters' // global filters
+import router from './router'
+
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
@@ -70,12 +71,6 @@ if (localStorage.getItem('themeValue')) {
   global.changeTheme('default')
 }
 Vue.config.productionTip = false
-// //使用axios, 解决前后台跨域问题, 后台地址
-// axios.defaults.baseURL = 'http://localhost:801/api'
-// // 使请求带上凭证信息
-// axios.defaults.withCredentials = true
-// // 全局注册，之后可在其他组件中通过this.$axios发送数据
-// Vue.prototype.$axios = axios
 new Vue({
   el: '#app',
   router,
@@ -84,6 +79,8 @@ new Vue({
   // template: '<App/>',
   // components: { App }
   render: h => h(App)
+
+  
 })
 
 

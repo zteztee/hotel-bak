@@ -4,7 +4,7 @@
             <a href="https://github.com/windiest/github-emoji" target="_blank">github-emoji组件参考github-emoji
             </a>
         </p>
-        <index></index>
+        <!-- <index></index> -->
     </div>
 </template>
 

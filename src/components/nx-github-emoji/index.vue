@@ -1022,7 +1022,7 @@
 	
 	input[type=range] {
 		width: 100%;
-		-webkit-appearance: none;
+		/* -webkit-appearance: none; */
 		background: #f8f8f8;
 	}
 	
