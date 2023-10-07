@@ -1,0 +1,14 @@
+com\zte\springboot_08_ssmp\mapper\TestAllMapper.class
+com\zte\springboot_08_ssmp\dao\RoomDaoTest.class
+com\zte\springboot_08_ssmp\sevice\testall.class
+com\zte\springboot_08_ssmp\mapper\TestOneMapper.class
+com\zte\springboot_08_ssmp\mapper\TestRoomMapper.class
+com\zte\springboot_08_ssmp\sevice\RoomServiceTest.class
+com\zte\springboot_08_ssmp\mapper\TestPayMapper.class
+com\zte\springboot_08_ssmp\mapper\TestCountClientMapper.class
+com\zte\springboot_08_ssmp\mapper\TestClientStayMapper.class
+com\zte\springboot_08_ssmp\mapper\TestAdmMapper.class
+com\zte\springboot_08_ssmp\sevice\testclent.class
+com\zte\springboot_08_ssmp\proxy\AnnoTest.class
+com\zte\springboot_08_ssmp\HotelBackApplicationTests.class
+com\zte\springboot_08_ssmp\mapper\TestTeamMapper.class
